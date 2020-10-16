@@ -22,7 +22,12 @@ boolean isCam = false;
 
 void setup() {
   fullScreen();
-  src = new File("C:\\Users\\lawso\\Desktop\\processing projects\\Image_Mod\\data\\src.png");
+  try {
+    src = new File(createReader("data_src").readLine()+"\\src.png");
+  } 
+  catch (IOException e) {
+    exit();
+  }
   snow = new Snow((int) ((xres * yres) / (inc * 3) * .75));
   bi = new BufferedImage(xres, yres, BufferedImage.TYPE_4BYTE_ABGR);  
   img = loadImage("https://i.kym-cdn.com/photos/images/newsfeed/001/580/125/460.png");
