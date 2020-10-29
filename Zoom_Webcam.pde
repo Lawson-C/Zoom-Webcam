@@ -9,8 +9,9 @@ Snow snow;
 BufferedImage bi;
 Capture cam;
 
-int inc = 40; // must be a factor of 120
-int xres = 1920 / inc, yres = 1080 / inc;
+final int screenSizeX = 1920, screenSizeY = 1080;
+int inc = 16; // must be a factor of 120
+int xres = screenSizeX / inc, yres = screenSizeY / inc;
 
 int imageMode = 0;
 int modeLimit = 2;
@@ -42,18 +43,14 @@ void setup() {
 void draw() {
   background(0);
   if (imageMode == 0) {
-    image(loadImage("https://i.kym-cdn.com/photos/images/newsfeed/001/580/125/460.png"), 0, 0, 1920, 1080);
+    image(loadImage("https://i.kym-cdn.com/photos/images/newsfeed/001/580/125/460.png"), 0, 0, screenSizeX, screenSizeY);
   } else if (imageMode == 1) {
     snow.periodic();
   } else if (imageMode == 2) {
-    image(img, 0, 0, 1920, 1080);
+    image(img, 0, 0, screenSizeX, screenSizeY);
   }
   if (isCam) {
-    if (cam.available()) {
-      withCam();
-    } else {
-      isCam = false;
-    }
+    withCam();
   } else {
     noCam();
   }

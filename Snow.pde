@@ -6,15 +6,15 @@ class Snow {
     this.flakes = new HashMap<Integer, HashMap<Integer, Boolean>>();
     for (int i = 0; i < amount; i++) {
       int s = inc;
-      int area = s * 3;
-      int x = i * s * 3;
-      if (x >= 1920) {
-        x -= 1920;
+      int area = s * 9;
+      int x = i * area + s;
+      if (x > screenSizeX) {
+        //x -= screenSizeX;
       }
-      int y = (int) random(s, 1080 - 2*s);
+      int y = (int) random(s, screenSizeY - 2*s);
       try {
         while (this.flakes.get(x / area).get(y / area)) {
-          y = (int) random(s, 1080 - s*2);
+          y = (int) random(s, screenSizeY - s*2);
         }
       } 
       catch (NullPointerException e) {
@@ -26,7 +26,7 @@ class Snow {
         }
       }
       this.flakes.get(x / area).put(y / area, true);
-      this.particles.add(new SnowFlake(x, y, /*(int) random(9) + 1*/ 5, s));
+      this.particles.add(new SnowFlake(x, y, inc, s));
     }
   }
 
@@ -56,12 +56,13 @@ class SnowFlake {
 
   void move() {
     this.y += this.move;
-    if (this.y >= 1080) {
+    if (this.y >= screenSizeY) {
       this.y = 0;
     }
   }
 
   void display() {
+    noStroke();
     fill(255);
     rect(this.x - this.size, this.y - this.size, 
       this.size, this.size);
