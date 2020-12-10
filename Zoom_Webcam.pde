@@ -14,7 +14,7 @@ int inc = 16; // must be a factor of 120
 int xres = screenSizeX / inc, yres = screenSizeY / inc;
 
 int imageMode = 0;
-int modeLimit = 2;
+int modeLimit = 3;
 
 PImage img;
 PImage backDrop;
@@ -43,7 +43,7 @@ void setup() {
 void draw() {
   background(0);
   if (imageMode == 0) {
-    image(loadImage("https://i.kym-cdn.com/photos/images/newsfeed/001/580/125/460.png"), 0, 0, screenSizeX, screenSizeY);
+    image(loadImage("https://i.imgur.com/wNVUuO4.jpg"), 0, 0, screenSizeX, screenSizeY);
   } else if (imageMode == 1) {
     snow.periodic();
   } else if (imageMode == 2) {
@@ -54,6 +54,22 @@ void draw() {
   } else {
     noCam();
   }
+}
+
+int cUnitsX(int sUnits) {
+  return sUnits * cam.width/screenSizeX;
+}
+
+int cUnitsY(int sUnits) {
+  return sUnits * cam.height/screenSizeY;
+}
+
+int sUnitsX(int cUnits) {
+  return cUnits * screenSizeX/cam.width;
+}
+
+int sUnitsY(int cUnits) {
+  return cUnits * screenSizeY/cam.height;
 }
 
 void mousePressed() {
